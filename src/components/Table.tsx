@@ -23,11 +23,15 @@ export default function Table() {
     {
       id: 2,
       name: "second column",
-      cards: [],
+      cards: [
+        {
+          id: 3,
+          name: "Third Card",
+          description: "Hi this is our Third card",
+        },
+      ],
     },
   ]);
-  const [activeColumn, setActiveColumn] = useState()
-  const [activeCard, setActiveCard] = useState()
   return (
     <div>
       <h3>Table</h3>
