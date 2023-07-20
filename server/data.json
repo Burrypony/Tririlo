@@ -1,0 +1,25 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "first column",
+            "cards": [
+                {
+                    "id": 1,
+                    "name": "first Card",
+                    "description": "Hi this is our fist card"
+                },
+                {
+                    "id": 2,
+                    "name": "Second Card",
+                    "description": "Hi this is our second card"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "second column",
+            "cards": []
+        }
+    ]
+}

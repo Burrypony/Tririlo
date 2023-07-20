@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "./Card";
 
-interface Card {
+interface CardInfo {
   id: number;
   name: string;
   description: string;
@@ -11,12 +11,14 @@ interface ColumnProps {
   columnData: {
     id: number;
     name: string;
-    cards: Card[];
+    cards: CardInfo[];
   }[];
+  setActiveColumn:any;
+  setActiveCard:any;
 }
 
-export default function Column(props:{props: ColumnProps, setActiveColumn:any, setActiveCard:any}) {
-  const columnData = props.props.columnData;
+export default function Column(props:ColumnProps) {
+  const columnData = props.columnData;
 
   return (
     <div className="columnSection">
