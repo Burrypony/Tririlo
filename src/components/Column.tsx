@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "./Card";
+
 
 interface Card {
   id: number;
@@ -27,9 +28,13 @@ export default function Column(props: ColumnProps) {
   const [activeColumn, setActiveColumn] = useState({
     id: -1,
     name: "",
-    cards: [{id: -1,name:'',description:''}],
+    cards: [{ id: -1, name: "", description: "" }],
   });
-  const [activeItem, setActiveItem] = useState({id: -1,name:'test',description:'test'});
+  const [activeItem, setActiveItem] = useState({
+    id: -1,
+    name: "test",
+    description: "test",
+  });
   console.log("columns", columns);
   console.log("activeColumn " + JSON.stringify(activeColumn));
 
@@ -41,38 +46,51 @@ export default function Column(props: ColumnProps) {
     }
   }
 
-  function dropCardHandler(e: React.DragEvent<HTMLDivElement>, columnTriggered:activeColumn){
-    
-    if(columnTriggered.cards.indexOf(activeItem) < 0){
-       columnTriggered.cards.push(activeItem)
+  function dropCardHandler(
+    e: React.DragEvent<HTMLDivElement>,
+    columnTriggered: activeColumn
+  ) {
+    if (columnTriggered.cards.indexOf(activeItem) < 0) {
+      columnTriggered.cards.push(activeItem);
     }
-    const dublicates = []
-    const cardExist = columnTriggered.cards.forEach(el => {if(el === activeItem){
-            dublicates.push(el)}})
-     if(dublicates.length > 1){
+    const dublicates = [];
+    const cardExist = columnTriggered.cards.forEach((el) => {
+      if (el === activeItem) {
+        dublicates.push(el);
+      }
+    });
+    if (dublicates.length > 1) {
       const currentIndex = columnTriggered.cards.indexOf(activeItem);
       columnTriggered.cards.splice(currentIndex, 1);
-     }
-     if(activeColumn.id !== columnTriggered.id){
-     const currentIndex = activeColumn.cards.indexOf(activeItem);
+    }
+    if (activeColumn.id !== columnTriggered.id) {
+      const currentIndex = activeColumn.cards.indexOf(activeItem);
+      if(currentIndex >= 0){
       activeColumn.cards.splice(currentIndex, 1);
-    const newColumns = columns.map(column => {
-      if(column.id === columnTriggered.id){
-        return columnTriggered
       }
-      if(column.id === activeColumn.id){
-        return activeColumn
-      } 
-      return column
-    })
-    setColumns(newColumns)
+      const newColumns = columns.map((column) => {
+        if (column.id === columnTriggered.id) {
+          return columnTriggered;
+        }
+        if (column.id === activeColumn.id) {
+          return activeColumn;
+        }
+        return column;
+      });
+      setColumns(newColumns);
+    }
   }
-  }
+
 
   return (
     <div className="columnSection">
       {columns.map((el) => (
-        <div className="column" key={el.id} onDragOver={(e)=> dragOverHandler(e)} onDrop={(e) =>dropCardHandler(e, el)}>
+        <div
+          className="column"
+          key={el.id}
+          onDragOver={(e) => dragOverHandler(e)}
+          onDrop={(e) => dropCardHandler(e, el)}
+        >
           <h3 className="columnName">{el.name}</h3>
           <Card
             columnInfo={el}

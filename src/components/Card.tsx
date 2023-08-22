@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface Card {
   id: number;
@@ -105,6 +105,7 @@ export default function Card({
     target.style.boxShadow = "none";
   }
 
+  
   return (
     <div className="cardSection">
       {columnData.cards.map((card) => (
