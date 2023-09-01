@@ -16,7 +16,7 @@ const pool = mysql.createPool({
     queueLimit: 0,
     enableKeepAlive: true,
     keepAliveInitialDelay: 0
-})
+}).promise()
 
 
 pool.getConnection((err,connection) =>{

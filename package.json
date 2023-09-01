@@ -10,6 +10,7 @@
     "@types/node": "^16.11.54",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
@@ -22,6 +23,8 @@
     "react-redux": "^8.0.2",
     "react-scripts": "^5.0.1",
     "redux": "^4.2.0",
+    "sequelize": "^6.32.1",
+    "sqlite3": "^5.1.6",
     "typescript": "^4.7.4",
     "web-vitals": "^2.1.4"
   },
@@ -31,7 +34,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "nodemon server.js"
-    
   },
   "eslintConfig": {
     "extends": [

@@ -1,14 +1,17 @@
+const pool = require("../config/db")
+const asyncHandler = require("express-async-handler")
 //@desc Get all tables
 //@route GET /table
 //@access private
-const getTables = (req, res) => {
-    // const { email, password } = req.body
-    // if (!email || !password) {
-    //     res.status(400)
-    //     res.json({ "error": "All fields mandatory" })
-    // }
-    res.status(200).json({ data: "Here will be all tables" })
-}
+const getTables = asyncHandler(async (req, res) => {
+    const userID = req.user.id
+    const tables = await getAllTablesForUser(userID)
+    if(!tables[0]){
+        res.status(404)
+        res.json({ "error": "Tables not found" })
+    }
+    res.status(200).json(tables)
+})
 
 //@desc Create tables
 //@route POST /table
@@ -38,12 +41,13 @@ const getTable = (req, res) => {
 //@route PUT /table/:id
 //@access private
 const updateTable = (req, res) => {
-    const { id } = req.params.id
-    if (!id) {
+    const { name } = req.params.name
+    const userID = req.user.id
+    if (!name) {
         res.status(404)
         res.json({ "error": "Table not found" })
     }
-    res.status(200).json({ id })
+    res.status(200).json({ name })
 }
 
 //@desc Delete Table
@@ -56,6 +60,14 @@ const deleteTable = (req, res) => {
         res.json({ "error": "Table not found" })
     }
     res.status(200).json({ id })
+}
+
+async function getAllTablesForUser(userID){
+    const [rows] = await pool.query(`
+    SELECT *
+    FROM tables
+    WHERE table_id IN (SELECT table_id FROM table_users WHERE user_id = ?)
+`, [userID])
 }
 
 
